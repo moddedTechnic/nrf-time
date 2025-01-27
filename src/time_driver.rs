@@ -52,10 +52,10 @@ fn calc_now(period: u32, counter: u32) -> u64 {
 }
 
 #[macro_export]
-macro_rules! time_init {
+macro_rules! initialize_timer {
     // Take the name of the RTC peripheral
-    ($name:ident: $RTC:ident) => {
-        mod $name {
+    ($RTC:ident from ($rtc:expr, $nvic:expr)) => {
+        {
             use ::core::cell::RefCell;
             use ::cortex_m::interrupt::Mutex;
             use ::nrf52833_hal::{pac, Rtc};
@@ -79,6 +79,8 @@ macro_rules! time_init {
                         .now()
                 })
             }
+
+            init($rtc, $nvic);
         }
     };
 }
