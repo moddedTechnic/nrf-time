@@ -284,7 +284,6 @@ version = "0.1.0"
 dependencies = [
  "cortex-m",
  "defmt",
- "embedded-hal-async",
  "futures-util",
  "nrf52833-hal",
 ]
