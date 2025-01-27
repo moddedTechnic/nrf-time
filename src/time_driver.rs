@@ -56,9 +56,9 @@ macro_rules! time_init {
     // Take the name of the RTC peripheral
     ($name:ident: $RTC:ident) => {
         mod $name {
-            use core::cell::RefCell;
-            use cortex_m::interrupt::Mutex;
-            use nrf52833_hal::{pac, Rtc};
+            use ::core::cell::RefCell;
+            use ::cortex_m::interrupt::Mutex;
+            use ::nrf52833_hal::{pac, Rtc};
             use $crate::RtcDriver;
 
             static DRIVER: Mutex<RefCell<Option<RtcDriver<pac::$RTC>>>> = Mutex::new(RefCell::new(None));
