@@ -1,13 +1,11 @@
 #![no_std]
 
-mod delay;
 mod duration;
 mod instant;
 mod tick;
 mod time_driver;
 mod timer;
 
-pub use delay::Delay;
 pub use duration::Duration;
 pub use instant::Instant;
 use tick::*;
