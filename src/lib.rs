@@ -1,14 +1,18 @@
 #![no_std]
 
+mod delay;
 mod duration;
 mod instant;
 mod tick;
 mod time_driver;
+mod timer;
 
+pub use delay::Delay;
 pub use duration::Duration;
 pub use instant::Instant;
 use tick::*;
 pub use time_driver::RtcDriver;
+pub use timer::{Ticker, Timer, WithTimeout};
 
 extern "Rust" {
     fn _nrf_time_now() -> u64;
