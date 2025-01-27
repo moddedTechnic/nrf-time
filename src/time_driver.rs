@@ -63,7 +63,7 @@ macro_rules! initialize_timer {
 
             static DRIVER: Mutex<RefCell<Option<RtcDriver<pac::$RTC>>>> = Mutex::new(RefCell::new(None));
 
-            pub fn init(rtc: Rtc<pac::$RTC>, nvic: &mut pac::NVIC) {
+            fn init(rtc: Rtc<pac::$RTC>, nvic: &mut pac::NVIC) {
                 cortex_m::interrupt::free(|cs| {
                     DRIVER.borrow(cs).replace(Some(RtcDriver::new(rtc, nvic)));
                 });
