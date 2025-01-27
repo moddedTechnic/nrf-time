@@ -69,7 +69,8 @@ macro_rules! time_init {
                 });
             }
 
-            pub fn now() -> u64 {
+            #[no_mangle]
+            fn _nrf_time_now() -> u64 {
                 cortex_m::interrupt::free(|cs| {
                     DRIVER.borrow(cs)
                         .borrow()
