@@ -58,7 +58,7 @@ macro_rules! initialize_timer {
         {
             use ::core::cell::RefCell;
             use ::cortex_m::interrupt::Mutex;
-            use ::nrf52833_hal::{pac, Rtc};
+            use ::nrf52833_hal::{pac::{self, interrupt}, Rtc};
             use $crate::RtcDriver;
 
             static DRIVER: Mutex<RefCell<Option<RtcDriver<pac::$RTC>>>> = Mutex::new(RefCell::new(None));
@@ -78,6 +78,15 @@ macro_rules! initialize_timer {
                         .expect("Time driver not initialized")
                         .now()
                 })
+            }
+
+            #[interrupt]
+            fn $RTC() {
+                cortex_m::interrupt::free(|cs| {
+                    if let Some(driver) = DRIVER.borrow(cs).borrow().as_ref() {
+                        driver.on_interrupt();
+                    }
+                });
             }
 
             init($rtc, $nvic);
